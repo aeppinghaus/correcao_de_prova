@@ -2,9 +2,10 @@
 #include <iostream>
 
 int main() {
-  Gabarito lucas;
-  Gabarito andre;
-  
+  // Gabarito lucas;
+  // Gabarito andre;
+
+  lerArquivo("resultado/resultado.csv");
 
   std::cout << "Hello World!\n";
 }
