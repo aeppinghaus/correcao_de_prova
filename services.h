@@ -12,13 +12,16 @@ string variavelGlobal[2];
 void split(string s, int linha);
 
 // fim de regiao de prototipos de funcao
+#define totalQuestoes 10
+#define totalLinha 2
 
 struct GabaritoComArray {
   string matricula;
   string nome;
-  string notas[2][12];
+  string questao[totalQuestoes];
 };
-GabaritoComArray gabarito1[2];
+
+GabaritoComArray gabarito1[totalLinha];
 
 struct GabaritoSemArray {
   string matricula;
@@ -34,7 +37,7 @@ struct GabaritoSemArray {
   string q9;
   string q10;
 };
-GabaritoSemArray gabarito2[2];
+GabaritoSemArray gabarito2[totalLinha];
 
 void lerArquivo(string nomeArquivo) {
   string line;
@@ -79,49 +82,32 @@ void split(string s, int linha) {
   int coluna = 0;
   size_t pos = 0;
   std::string token;
+  int contador=0;
   while ((pos = s.find(delimiter)) != std::string::npos) {
     token = s.substr(0, pos);
     // cout << "contador" << contador << endl;
     // std::cout << token << std::endl;
-
+    
     switch (coluna) {
     case 0:
-      gabarito2[linha].matricula = token;
+      gabarito1[linha].matricula = token;
       break;
     case 1:
-      gabarito2[linha].nome = token;
+      gabarito1[linha].nome = token;
       break;
-    case 2:
-      gabarito2[linha].q1 = token;
-      break;
-    case 3:
-      gabarito2[linha].q2 = token;
-      break;
-    case 4:
-      gabarito2[linha].q3 = token;
-      break;
-    case 5:
-      gabarito2[linha].q4 = token;
-      break;
-    case 6:
-      gabarito2[linha].q5 = token;
-      break;
-    case 7:
-      gabarito2[linha].q6 = token;
-      break;
-    case 8:
-      gabarito2[linha].q7 = token;
-      break;
-    case 9:
-      gabarito2[linha].q8 = token;
-      break;
-    case 10:
-      gabarito2[linha].q9 = token;
+    default:
+      gabarito1[linha].questao[coluna-2] = token; 
       break;
     }
+    /*
+    coluna=     0   1     2 3 4 5 6 7 8 9 10 11
+               1000,andre,b,c,e,f,a,e,d,b, c, a
+              questao     0,1,2,3,4,5,6,7, 8, 9
+
+      */
     s.erase(0, pos + delimiter.length());
     coluna++;
-  }
-  gabarito2[linha].q10 = s;
+  }//fim while
+  gabarito1[linha].questao[9] = s;
   // std::cout << s << std::endl;
 }
